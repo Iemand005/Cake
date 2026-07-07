@@ -81,7 +81,7 @@ public:
 	float light2ColorFreq = 0.25f;
 	
 	// Colors
-	float backgroundColorSpeed = 0.2f;
+	float backgroundColorSpeed = 0.1f;
 	float light1RadialColorFreq = 0.2f;
 	float light2RadialColorFreq = 0.25f;
 	
