@@ -53,7 +53,7 @@ target_include_directories(Cake PRIVATE
 	${ENGINE_DIR}/external/imgui
 	${ENGINE_DIR}/external/kissfft
 	${ENGINE_DIR}/external/SDL/include
-	${ENGINE_DIR}/Engine
+	${ENGINE_DIR}/src/Engine
 )
 
 target_link_libraries(Cake PRIVATE
