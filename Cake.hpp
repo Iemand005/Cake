@@ -361,8 +361,7 @@ public:
 			deltaTime = time - lastTime;
 			lastTime = time;
 			
-			float speed = 
-			elapsedTimeBumpy += deltaTime + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);;
+			elapsedTimeBumpy += deltaTime + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);
 			elapsedTime += deltaTime;
 			
 			float cameraPanSpeedVariation = abs(sin(elapsedTime * cameraPanVariationFreq)) * 0.5f;
