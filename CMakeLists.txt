@@ -47,13 +47,12 @@ add_executable(Cake
 
 target_include_directories(Cake PRIVATE
 	include
-	../..
-	../../../include
-	../../../external
-	../../../external/imgui
-	../../../external/kissfft
-	../../../external/SDL/include
-	../../Engine
+	${ENGINE_DIR}/include
+	${ENGINE_DIR}/external
+	${ENGINE_DIR}/external/imgui
+	${ENGINE_DIR}/external/kissfft
+	${ENGINE_DIR}/external/SDL/include
+	${ENGINE_DIR}/Engine
 )
 
 target_link_libraries(Cake PRIVATE
