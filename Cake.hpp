@@ -332,17 +332,7 @@ public:
 	void SetBackgroundColor(float r, float g, float b)
 	{
 		SetClearColor(r, g, b);
-
-		BYTE ir = (BYTE)(std::clamp(r, 0.0f, 1.0f) * 255.0f + 0.5f);
-		BYTE ig = (BYTE)(std::clamp(g, 0.0f, 1.0f) * 255.0f + 0.5f);
-		BYTE ib = (BYTE)(std::clamp(b, 0.0f, 1.0f) * 255.0f + 0.5f);
-
-		if (auraInitialized && ir == lastR && ig == lastG && ib == lastB)
-			return;
-
-		aura.SetColor(ir, ig, ib);
-		lastR = ir; lastG = ig; lastB = ib;
-		auraInitialized = true;
+		aura.SetColorFloat(r, g, b);
 	}
 
 	void Run() {
