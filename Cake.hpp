@@ -326,9 +326,6 @@ public:
 		if (ImGui::GetIO().WantCaptureMouse) window->StopMouseCapture();
 	}
 
-	BYTE lastR = 0, lastG = 0, lastB = 0;
-	bool auraInitialized = false;
-
 	void SetBackgroundColor(float r, float g, float b)
 	{
 		SetClearColor(r, g, b);
