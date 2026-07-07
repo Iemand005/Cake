@@ -341,6 +341,8 @@ public:
 		player->state.position.y = 2;
 		float elapsedTimeBumpy = 0.0f;
 		float elapsedTime = 0.0f;
+		float deltaTime = 0.0f;
+		float lastTime = 0.0f;
 		SDL_Event event;
 		
 		while (!window->ShouldClose()) {
@@ -353,10 +355,15 @@ public:
 					totalMagnitude += visualizer.bandMagnitudes[i];
 			}
 			float avgMagnitude = totalMagnitude / NUM_BARS;
+
+
+			float time = window->GetTime();
+			deltaTime = time - lastTime;
+			lastTime = time;
 			
-			float speed = baseSpeedElapsedTimeBumpy + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);
-			elapsedTimeBumpy += speed;
-			elapsedTime += baseSpeedElapsedTime;
+			float speed = 
+			elapsedTimeBumpy += deltaTime + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);;
+			elapsedTime += deltaTime;
 			
 			float cameraPanSpeedVariation = abs(sin(elapsedTime * cameraPanVariationFreq)) * 0.5f;
 			float cameraPanSpeeda = cameraPanSpeed + cameraPanSpeedVariation;
