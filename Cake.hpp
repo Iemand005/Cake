@@ -47,7 +47,7 @@ public:
 	std::shared_ptr<fe::Object> flameParticle;
 
 	// Camera tweaks
-	float cameraPanSpeed = 0.4f;
+	float cameraPanSpeed = 0.2f;
 	float cameraPanFreqX = 0.3f;
 	float cameraPanFreqY = 0.2f;
 	float cameraPanFreqZ = 0.15f;
