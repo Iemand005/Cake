@@ -80,6 +80,15 @@ if(MSVC)
 	target_link_options(Cake PRIVATE $<$<CONFIG:Debug>:/DEBUG>)
 
 	add_compile_options(/RTC1)
+
+	
+	set(USE_STATIC_MSVC_RUNTIME_LIBRARY OFF CACHE BOOL "Use Static MSVC++" FORCE)
+	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+
+	set(KISSFFT_TEST OFF CACHE BOOL "Disable KissFFT tests" FORCE)
+
+	set(KISSFFT_STATIC ON CACHE BOOL "Build static library" FORCE)
+
 endif()
 
 # set_target_properties(Cake PROPERTIES SUFFIX ".scr")
