@@ -379,9 +379,9 @@ public:
 			cameraOffset.y = cos(elapsedTime * cameraPanSpeeda * cameraPanFreqY) * cameraOffsetScales.y;
 			cameraOffset.z = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqZ) * cameraOffsetScales.z;
 			
-			float colorR = sin(elapsedTime * bgColorFreq) * 0.5f + 0.5f;
-			float colorG = sin(elapsedTime * bgColorFreq + 2.094f) * 0.5f + 0.5f;
-			float colorB = sin(elapsedTime * bgColorFreq + 4.189f) * 0.5f + 0.5f;
+			float colorR = sin(elapsedTimeBumpy * bgColorFreq) * 0.5f + 0.5f;
+			float colorG = sin(elapsedTimeBumpy * bgColorFreq + 2.094f) * 0.5f + 0.5f;
+			float colorB = sin(elapsedTimeBumpy * bgColorFreq + 4.189f) * 0.5f + 0.5f;
 
 			SetBackgroundColor(colorR, colorG, colorB);
 
