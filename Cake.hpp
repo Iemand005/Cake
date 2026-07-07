@@ -326,8 +326,7 @@ public:
 		if (ImGui::GetIO().WantCaptureMouse) window->StopMouseCapture();
 	}
 
-	void SetBackgroundColor(float r, float g, float b)
-	{
+	void SetBackgroundColor(float r, float g, float b) {
 		SetClearColor(r, g, b);
 		aura.SetColorFloat(r, g, b);
 	}
