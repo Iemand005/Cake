@@ -118,7 +118,7 @@ public:
 		window->SetTitle(isCyanide ? "HAPPY BIRTHDAY CYANIDE!!" : "HAPPY BIRTHDAY FLEXAN!!");
 		window->SetTitle(name);
 
-		SetClearColor(1, 1, 0);
+		SetClearColor(1, 0, 1);
 
 		LoadShaders("resources/shaders/VertexShader.glsl", "resources/shaders/FragmentShader.glsl");
 
