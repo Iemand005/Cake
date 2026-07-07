@@ -22,7 +22,7 @@
 
 #include <ScreenSaverMode.hpp>
 #include <audio/AudioVisualiser.hpp>
-#include <accessories/aura.h>
+#include <accessories/Aura.hpp>
 
 class Cake : public fe::EditableGame {
 public:
