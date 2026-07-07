@@ -47,7 +47,7 @@ public:
 	std::shared_ptr<fe::Object> flameParticle;
 
 	// Camera tweaks
-	float cameraPanSpeed = 2.1f;
+	float cameraPanSpeed = 0.4f;
 	float cameraPanFreqX = 0.3f;
 	float cameraPanFreqY = 0.2f;
 	float cameraPanFreqZ = 0.15f;
@@ -81,7 +81,7 @@ public:
 	float light2ColorFreq = 0.25f;
 	
 	// Colors
-	float bgColorFreq = 0.3f;
+	float backgroundColorSpeed = 0.2f;
 	float light1RadialColorFreq = 0.2f;
 	float light2RadialColorFreq = 0.25f;
 	
@@ -372,9 +372,9 @@ public:
 			cameraOffset.z = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqZ) * cameraOffsetScales.z;
 			
 			float colorTime = elapsedTimeBumpy / 2.0f;
-			float colorR = sin(colorTime * bgColorFreq) * 0.5f + 0.5f;
-			float colorG = sin(colorTime * bgColorFreq + 2.094f) * 0.5f + 0.5f;
-			float colorB = sin(colorTime * bgColorFreq + 4.189f) * 0.5f + 0.5f;
+			float colorR = sin(colorTime * backgroundColorSpeed) * 0.5f + 0.5f;
+			float colorG = sin(colorTime * backgroundColorSpeed + 2.094f) * 0.5f + 0.5f;
+			float colorB = sin(colorTime * backgroundColorSpeed + 4.189f) * 0.5f + 0.5f;
 
 			SetBackgroundColor(colorR, colorG, colorB);
 
@@ -532,7 +532,7 @@ public:
         }
         
         if (ImGui::CollapsingHeader("Colors")) {
-            ImGui::SliderFloat("Background Color Freq", &bgColorFreq, 0.0f, 1.0f);
+            ImGui::SliderFloat("Background Color Freq", &backgroundColorSpeed, 0.0f, 1.0f);
         }
         
         if (ImGui::CollapsingHeader("Flame")) {
