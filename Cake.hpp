@@ -113,9 +113,10 @@ public:
 
 	Cake(int width, int height) : fe::EditableGame(width, height, false, false) {
 
-		char *name = "AGNEZ"
+		const char *name = "HAPPY BIRTHDAY AGNEZ!!";
 
 		window->SetTitle(isCyanide ? "HAPPY BIRTHDAY CYANIDE!!" : "HAPPY BIRTHDAY FLEXAN!!");
+		window->SetTitle(name);
 
 		SetClearColor(1, 1, 0);
 
