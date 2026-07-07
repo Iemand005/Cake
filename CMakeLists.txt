@@ -10,11 +10,14 @@ set(KISSFFT_STATIC ON CACHE BOOL "Build static library" FORCE)
 
 #add_subdirectory(${CMAKE_SOURCE_DIR}/../FenixEngine/src/Engine ${CMAKE_BINARY_DIR}/out/Engine)
 
+set(ENGINE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../FenixEngine")
+
+
 if(NOT TARGET Engine)
     message(STATUS "Engine target not found. Looking for engine source...")
     
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../FenixEngine/CMakeLists.txt")
-        add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../FenixEngine" FenixEngine)
+    if(EXISTS "${ENGINE_DIR}/CMakeLists.txt")
+        add_subdirectory("${ENGINE_DIR}" FenixEngine)
     # elif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/FenixEngine/CMakeLists.txt")
     #     add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/FenixEngine" FenixEngine)
     else()
@@ -22,7 +25,7 @@ if(NOT TARGET Engine)
     endif()
 endif()
 
-set(IMGUI_DIR ../../../external/imgui)
+set(IMGUI_DIR ${ENGINE_DIR}/external/imgui)
 
 file(GLOB_RECURSE IMGUI_SOURCE_FILES
 	${IMGUI_DIR}/imgui.cpp
