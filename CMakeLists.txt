@@ -47,6 +47,7 @@ add_executable(Cake
 
 target_include_directories(Cake PRIVATE
 	include
+	${ENGINE_DIR}
 	${ENGINE_DIR}/include
 	${ENGINE_DIR}/external
 	${ENGINE_DIR}/external/imgui
