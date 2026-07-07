@@ -105,13 +105,15 @@ public:
 	float baseSpeedElapsedTimeBumpy = 0.0002f;
 	float baseSpeedElapsedTime = 0.0002f;
 
-	bool isCyanide = false;
+	bool isCyanide = true;
 
 	Aura aura;
 
 	Cake() : Cake(1400, 1200) {}
 
 	Cake(int width, int height) : fe::EditableGame(width, height, false, false) {
+
+		char *name = "AGNEZ"
 
 		window->SetTitle(isCyanide ? "HAPPY BIRTHDAY CYANIDE!!" : "HAPPY BIRTHDAY FLEXAN!!");
 
@@ -221,7 +223,7 @@ public:
 		candleUVs.front = candleUVs.back = candleUVs.left = candleUVs.right = sideUV;
 
 		auto candleMesh = fe::Primitives::GenerateCube(candleUVs);
-		candleMesh.loadTexture("resources/textures/blue_candle_lit.png", fe::TextureScaling::Nearest);
+		candleMesh.loadTexture("resources/textures/purple_candle_lit.png", fe::TextureScaling::Nearest);
 
 		auto candle = std::make_shared<fe::Object>(candleMesh);
 
