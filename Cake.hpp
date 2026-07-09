@@ -17,7 +17,7 @@
 #include <imgui/backends/imgui_impl_sdl3.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
 
-#define EXCLUDE_JOLT
+// #define EXCLUDE_JOLT
 
 #include <EditableGame.hpp>
 #include <Primitives.hpp>
