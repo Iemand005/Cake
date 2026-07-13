@@ -1,6 +1,7 @@
 #ifdef _WIN32
-#define _WINSOCKAPI_
-#include <winsock2.h>
+// #define _WINSOCKAPI_
+// #include <winsock2.h>
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #else
 #include <X11/Xlib.h>
