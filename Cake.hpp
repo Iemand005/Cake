@@ -319,7 +319,9 @@ public:
 		if (window->IsKeyDown(SDL_SCANCODE_S)) this->player->Move(fe::Direction::Backwards, camera.get());
 		if (window->IsKeyDown(SDL_SCANCODE_D)) this->player->Move(fe::Direction::Right, camera.get());
 
-		if (window->IsKeyDown(SDL_SCANCODE_SPACE)) this->player->Move(fe::Direction::Up, camera.get());
+		if (window->IsKeyDown(SDL_SCANCODE_SPACE))
+		// `1`1`1		this->player->Move(fe::Direction::Up, camera.get());
+			this->player->Move(fe::Direction::Up, camera.get());
 		if (window->IsKeyDown(SDL_SCANCODE_LSHIFT)) this->player->Move(fe::Direction::Down, camera.get());
 
 		if (window->IsKeyDown(SDL_SCANCODE_ESCAPE)) window->StopMouseCapture();
