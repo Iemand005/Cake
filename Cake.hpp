@@ -147,7 +147,7 @@ public:
 		for (int i = 0; i < NUM_BARS; ++i) {
 			auto cube = std::make_shared<fe::Object<>>(fe::Primitives::GenerateCube(1.0f));
 			
-			cube->name = "Bar_" + i;
+			cube->name = "Bar_" + std::to_string(i);
 			cube->state.position = glm::vec3(-15.0f + i * 1.0f, 0.0f, -25.0f);
 			if (false)
 				cube->shader = barShader;

@@ -77,6 +77,13 @@ target_link_libraries(Cake PRIVATE X11::X11)
 endif()
 
 set_property(TARGET Cake PROPERTY VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_command(TARGET Cake POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${CMAKE_CURRENT_SOURCE_DIR}/resources
+		$<TARGET_FILE_DIR:Cake>/resources
+	COMMENT "Copying Cake resources to build directory..."
+)
 	
 if(MSVC)
 	target_compile_options(Cake PRIVATE $<$<CONFIG:Debug>:/Zi>)
