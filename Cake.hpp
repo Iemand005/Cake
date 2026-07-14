@@ -162,6 +162,7 @@ public:
 		}
 
 		this->player = std::make_shared<fe::Character>();
+		player->gravityEnabled = false;
 		this->scene->AddObject(player);
 
 		// Cake mesh
@@ -320,7 +321,6 @@ public:
 		if (window->IsKeyDown(SDL_SCANCODE_D)) this->player->Move(fe::Direction::Right, camera.get());
 
 		if (window->IsKeyDown(SDL_SCANCODE_SPACE))
-		// `1`1`1		this->player->Move(fe::Direction::Up, camera.get());
  			this->player->Move(fe::Direction::Up, camera.get());
 		if (window->IsKeyDown(SDL_SCANCODE_LSHIFT)) this->player->Move(fe::Direction::Down, camera.get());
 
