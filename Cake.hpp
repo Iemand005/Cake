@@ -33,7 +33,7 @@ public:
 
 	int mapIndex = 0;
 
-	std::vector<std::shared_ptr<fe::Object<>>> rectangles;
+	std::vector<std::shared_ptr<fe::Object>> rectangles;
 
 	AudioVisualiser visualizer;
 
@@ -41,8 +41,8 @@ public:
 
 	bool showDebugUI = false;
 
-	std::shared_ptr<fe::Object<>> wick;
-	std::shared_ptr<fe::Object<>> flameParticle;
+	std::shared_ptr<fe::Object> wick;
+	std::shared_ptr<fe::Object> flameParticle;
 
 	// Camera tweaks
 	float cameraPanSpeed = 0.2f;
@@ -145,7 +145,7 @@ public:
 		auto barShader = std::make_shared<fe::ShaderProgram>("resources/shaders/debug.vert", "resources/shaders/debug.frag");;
 
 		for (int i = 0; i < NUM_BARS; ++i) {
-			auto cube = std::make_shared<fe::Object<>>(fe::Primitives::GenerateCube(1.0f));
+			auto cube = std::make_shared<fe::Object>(fe::Primitives::GenerateCube(1.0f));
 			
 			cube->name = "Bar_" + std::to_string(i);
 			cube->state.position = glm::vec3(-15.0f + i * 1.0f, 0.0f, -25.0f);
@@ -193,9 +193,10 @@ public:
 		bottomMesh.loadTexture("resources/textures/cake_bottom.png", fe::TextureScaling::Nearest);
 		bottomMesh.hasTransparency = true;
 
-		auto CAKEObject = std::make_shared<fe::Object<>>(planeMesh);
-		CAKEObject->meshes.push_back(sideMesh);
-		CAKEObject->meshes.push_back(bottomMesh);
+		auto CAKEObject = std::make_shared<fe::Object>();
+		CAKEObject->PushMesh(std::move(planeMesh));
+		CAKEObject->PushMesh(std::move(sideMesh));
+		CAKEObject->PushMesh(std::move(bottomMesh));
 
 		CAKEObject->name = "Cake";
 		CAKEObject->state.position.y = 0.25f;
@@ -225,7 +226,7 @@ public:
 		auto candleMesh = fe::Primitives::GenerateCube(candleUVs);
 		candleMesh.loadTexture("resources/textures/purple_candle_lit.png", fe::TextureScaling::Nearest);
 
-		auto candle = std::make_shared<fe::Object<>>(candleMesh);
+		auto candle = std::make_shared<fe::Object>(candleMesh);
 
 		candle->name = "Candle";
 		candle->state.position.y = 0.75f;
@@ -244,7 +245,7 @@ public:
 		auto wickMesh = fe::Primitives::GeneratePlane(fe::PlaneDirection::Front, 1.0f / 16.0f, 1.0f / 16.0f, wickUV);
 		wickMesh.loadTexture("resources/textures/candle.png", fe::TextureScaling::Nearest);
 
-		auto wickObject = std::make_shared<fe::Object<>>(wickMesh);
+		auto wickObject = std::make_shared<fe::Object>(wickMesh);
 		candle->name = "Wick";
 		wickObject->state.position.y = 1.03f;
 		wick = wickObject;
@@ -263,7 +264,7 @@ public:
 		auto flameMesh = fe::Primitives::GeneratePlane(fe::PlaneDirection::Front, 0.15f, 0.15f, flameUV);
 		flameMesh.loadTexture("resources/textures/particles.png", fe::TextureScaling::Nearest);
 
-		auto particle = std::make_shared<fe::Object<>>(flameMesh);
+		auto particle = std::make_shared<fe::Object>(flameMesh);
 		candle->name = "Flame";
 		particle->meshes[0].hasTransparency = true;
 		particle->state.position.y = 1.085f;
