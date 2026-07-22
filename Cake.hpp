@@ -266,7 +266,7 @@ public:
 
 		auto particle = std::make_shared<fe::Object>(flameMesh);
 		candle->name = "Flame";
-		particle->meshes[0].hasTransparency = true;
+        // particle->meshes[0].hasTransparency = true; // TODO: brng it back!
 		particle->state.position.y = 1.085f;
 		flameParticle = particle;
 		scene->AddObject(particle);
