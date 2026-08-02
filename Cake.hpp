@@ -120,7 +120,11 @@ public:
 
 		SetClearColor(1, 0, 1);
 
+		#ifdef __EMSCRIPTEN__
+		LoadShaders("resources/shaders/VertexShader_es.glsl", "resources/shaders/FragmentShader_es.glsl");
+#else
 		LoadShaders("resources/shaders/VertexShader.glsl", "resources/shaders/FragmentShader.glsl");
+#endif
 
 		LoadModels();
 
