@@ -158,3 +158,32 @@ if(GLSLC)
 else()
 	message(WARNING "glslc not found — shader compilation skipped. Set VULKAN_SDK environment variable.")
 endif()
+
+
+
+# Emscripten shi
+
+
+include(${CMAKE_SOURCE_DIR}/EmscriptenConfig.cmake)
+if(EMSCRIPTEN)
+	setup_emscripten_target(Cake
+		RESOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/resources
+	)
+
+	# Publish the runnable Foxcraft build to the FenixWeb Pages docs folder.
+	# Release emscripten builds only; the custom Foxcraft.html is never touched.
+	if(CMAKE_BUILD_TYPE STREQUAL "Release")
+		set(CAKE_PAGES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../FenixWeb/docs/Cake)
+		set(CAKE_OUT_DIR $<TARGET_FILE_DIR:Cake>)
+
+		add_custom_command(TARGET Cake POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy
+				${CAKE_OUT_DIR}/Cake.wasm ${CAKE_PAGES_DIR}/Cake.wasm
+			COMMAND ${CMAKE_COMMAND} -E copy
+				${CAKE_OUT_DIR}/Cake.js ${CAKE_PAGES_DIR}/Cake.js
+			COMMAND ${CMAKE_COMMAND} -E copy
+				${CAKE_OUT_DIR}/Cake.data ${CAKE_PAGES_DIR}/Cake.data
+			COMMENT "Publishing CAKE build artifacts to ${CAKE_PAGES_DIR} (Release only)"
+		)
+	endif()
+endif()
