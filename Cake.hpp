@@ -342,13 +342,13 @@ public:
 	float elapsedTime = 0.0f;
 	float deltaTime = 0.0f;
 	float lastTime = 0.0f;
+	glm::vec3 cameraOffset = glm::vec3(0);
 
 	void Init() override {
 		auto window = this->GetWindow<fe::SDLWindow>();
 		window->Show();
 		window->DisableVSync();
 	
-		glm::vec3 cameraOffset = glm::vec3(0);
 		player->state.position.z = 5;
 		player->state.position.y = 2;
 		SDL_Event event;
@@ -356,7 +356,7 @@ public:
 		
 	void Step() override {
 		auto window = GetWindow<fe::SDLWindow>();
-		
+
 		ProcessInput();
 		visualizer.Update();
 
