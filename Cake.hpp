@@ -338,7 +338,12 @@ public:
 		aura.SetColorFloat(r, g, b);
 	}
 
-	void Run() {
+	float elapsedTimeBumpy = 0.0f;
+	float elapsedTime = 0.0f;
+	float deltaTime = 0.0f;
+	float lastTime = 0.0f;
+
+	void Init() override {
 		auto window = this->GetWindow<fe::SDLWindow>();
 		window->Show();
 		window->DisableVSync();
@@ -346,108 +351,103 @@ public:
 		glm::vec3 cameraOffset = glm::vec3(0);
 		player->state.position.z = 5;
 		player->state.position.y = 2;
-		float elapsedTimeBumpy = 0.0f;
-		float elapsedTime = 0.0f;
-		float deltaTime = 0.0f;
-		float lastTime = 0.0f;
 		SDL_Event event;
+	}
 		
-		while (!window->ShouldClose()) {
-			
-			ProcessInput();
-			visualizer.Update();
+	void Step() override {
+		auto window = GetWindow<fe::SDLWindow>();
+		
+		ProcessInput();
+		visualizer.Update();
 
-			float totalMagnitude = 0.0f;
-			for (int i = 0; i < NUM_BARS; ++i) {
-					totalMagnitude += visualizer.bandMagnitudes[i];
-			}
-			float avgMagnitude = totalMagnitude / NUM_BARS;
+		float totalMagnitude = 0.0f;
+		for (int i = 0; i < NUM_BARS; ++i)
+			totalMagnitude += visualizer.bandMagnitudes[i];
+		float avgMagnitude = totalMagnitude / NUM_BARS;
 
 
-			float time = window->GetTime();
-			deltaTime = time - lastTime;
-			lastTime = time;
-			
-			elapsedTimeBumpy += deltaTime + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);
-			elapsedTime += deltaTime;
-			
-			float cameraPanSpeedVariation = abs(sin(elapsedTime * cameraPanVariationFreq)) * 0.5f;
-			float cameraPanSpeeda = cameraPanSpeed + cameraPanSpeedVariation;
-			
-			cameraOffset.x = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqX) * cameraOffsetScales.x;
-			cameraOffset.y = cos(elapsedTime * cameraPanSpeeda * cameraPanFreqY) * cameraOffsetScales.y;
-			cameraOffset.z = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqZ) * cameraOffsetScales.z;
-			
-			float colorTime = elapsedTimeBumpy / 2.0f;
-			float colorR = sin(colorTime * backgroundColorSpeed) * 0.5f + 0.5f;
-			float colorG = sin(colorTime * backgroundColorSpeed + 2.094f) * 0.5f + 0.5f;
-			float colorB = sin(colorTime * backgroundColorSpeed + 4.189f) * 0.5f + 0.5f;
+		float time = window->GetTime();
+		deltaTime = time - lastTime;
+		lastTime = time;
+		
+		elapsedTimeBumpy += deltaTime + (avgMagnitude * audioAmplitudeScale * audioSpeedMultiplier);
+		elapsedTime += deltaTime;
+		
+		float cameraPanSpeedVariation = abs(sin(elapsedTime * cameraPanVariationFreq)) * 0.5f;
+		float cameraPanSpeeda = cameraPanSpeed + cameraPanSpeedVariation;
+		
+		cameraOffset.x = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqX) * cameraOffsetScales.x;
+		cameraOffset.y = cos(elapsedTime * cameraPanSpeeda * cameraPanFreqY) * cameraOffsetScales.y;
+		cameraOffset.z = sin(elapsedTime * cameraPanSpeeda * cameraPanFreqZ) * cameraOffsetScales.z;
+		
+		float colorTime = elapsedTimeBumpy / 2.0f;
+		float colorR = sin(colorTime * backgroundColorSpeed) * 0.5f + 0.5f;
+		float colorG = sin(colorTime * backgroundColorSpeed + 2.094f) * 0.5f + 0.5f;
+		float colorB = sin(colorTime * backgroundColorSpeed + 4.189f) * 0.5f + 0.5f;
 
-			SetBackgroundColor(colorR, colorG, colorB);
+		SetBackgroundColor(colorR, colorG, colorB);
 
-			float light1R = sin(elapsedTime * light1RadialColorFreq) * 0.5f + 0.5f;
-			float light1G = sin(elapsedTime * light1RadialColorFreq + 2.094f) * 0.5f + 0.5f;
-			float light1B = sin(elapsedTime * light1RadialColorFreq + 4.189f) * 0.5f + 0.5f;
-			scene->GetLights()[1].color = {light1R, light1G, light1B};
+		float light1R = sin(elapsedTime * light1RadialColorFreq) * 0.5f + 0.5f;
+		float light1G = sin(elapsedTime * light1RadialColorFreq + 2.094f) * 0.5f + 0.5f;
+		float light1B = sin(elapsedTime * light1RadialColorFreq + 4.189f) * 0.5f + 0.5f;
+		scene->GetLights()[1].color = {light1R, light1G, light1B};
 
-			float light2R = sin(elapsedTime * light2RadialColorFreq + 1.047f) * 0.5f + 0.5f;
-			float light2G = sin(elapsedTime * light2RadialColorFreq + 3.14f) * 0.5f + 0.5f;
-			float light2B = sin(elapsedTime * light2RadialColorFreq + 5.236f) * 0.5f + 0.5f;
-			scene->GetLights()[2].color = {light2R, light2G, light2B};
+		float light2R = sin(elapsedTime * light2RadialColorFreq + 1.047f) * 0.5f + 0.5f;
+		float light2G = sin(elapsedTime * light2RadialColorFreq + 3.14f) * 0.5f + 0.5f;
+		float light2B = sin(elapsedTime * light2RadialColorFreq + 5.236f) * 0.5f + 0.5f;
+		scene->GetLights()[2].color = {light2R, light2G, light2B};
 
-			// Light 0
-			scene->GetLights()[0].position = lightCenter0 + glm::vec3(
-				sin(elapsedTimeBumpy * light0FreqX * lightSpeed) * lightRadius0,
-				cos(elapsedTimeBumpy * light0FreqY * lightSpeed) * lightRadius0 * 0.5f,
-				sin(elapsedTimeBumpy * light0FreqZ * lightSpeed) * lightRadius0
-			);
+		// Light 0
+		scene->GetLights()[0].position = lightCenter0 + glm::vec3(
+			sin(elapsedTimeBumpy * light0FreqX * lightSpeed) * lightRadius0,
+			cos(elapsedTimeBumpy * light0FreqY * lightSpeed) * lightRadius0 * 0.5f,
+			sin(elapsedTimeBumpy * light0FreqZ * lightSpeed) * lightRadius0
+		);
 
-			// Light 1
-			scene->GetLights()[1].position = lightCenter1 + glm::vec3(
-				sin(elapsedTimeBumpy * light1FreqX * lightSpeed) * lightRadius1,
-				cos(elapsedTimeBumpy * light1FreqY * lightSpeed) * lightRadius1 * 0.6f,
-				sin(elapsedTimeBumpy * light1FreqZ * lightSpeed) * lightRadius1
-			);
+		// Light 1
+		scene->GetLights()[1].position = lightCenter1 + glm::vec3(
+			sin(elapsedTimeBumpy * light1FreqX * lightSpeed) * lightRadius1,
+			cos(elapsedTimeBumpy * light1FreqY * lightSpeed) * lightRadius1 * 0.6f,
+			sin(elapsedTimeBumpy * light1FreqZ * lightSpeed) * lightRadius1
+		);
 
-			// Light 2
-			scene->GetLights()[2].position = lightCenter2 + glm::vec3(
-				sin(elapsedTimeBumpy * light2FreqX * lightSpeed) * lightRadius2,
-				cos(elapsedTimeBumpy * light2FreqY * lightSpeed) * lightRadius2 * 0.7f,
-				sin(elapsedTimeBumpy * light2FreqZ * lightSpeed) * lightRadius2
-			);
-			
-			glm::vec3 pos = player->state.position + cameraOffset;
-			camera->SetPos(pos);
-			camera->LookAt(wick->state.position);
-			flameParticle->LookAt(camera->GetPos());
-			wick->LookAt(camera->GetPos());
+		// Light 2
+		scene->GetLights()[2].position = lightCenter2 + glm::vec3(
+			sin(elapsedTimeBumpy * light2FreqX * lightSpeed) * lightRadius2,
+			cos(elapsedTimeBumpy * light2FreqY * lightSpeed) * lightRadius2 * 0.7f,
+			sin(elapsedTimeBumpy * light2FreqZ * lightSpeed) * lightRadius2
+		);
+		
+		glm::vec3 pos = player->state.position + cameraOffset;
+		camera->SetPos(pos);
+		camera->LookAt(wick->state.position);
+		flameParticle->LookAt(camera->GetPos());
+		wick->LookAt(camera->GetPos());
 
-			// Flame flicker
-			float flamePhase = fmod(elapsedTime * flamePhaseMultiplier, flameCycleDuration);
-			float flameProgress = flamePhase / flameCycleDuration;
+		// Flame flicker
+		float flamePhase = fmod(elapsedTime * flamePhaseMultiplier, flameCycleDuration);
+		float flameProgress = flamePhase / flameCycleDuration;
 
-			if (flameProgress < 0.15f) {
-					float popProgress = flameProgress / 0.15f;
-					float flicker = sin(flameProgress * flameFlickerSpeed1) * flameFlickerIntensity1;
-					float flameScale = flameBaseScale + flicker;
-					flameParticle->state.scale = glm::vec3(flameScale);
-			} else if (flameProgress < 0.85f) {
-					float shrinkProgress = (flameProgress - 0.15f) / 0.7f;
-					float flameScale = (1.0f - shrinkProgress * flameShrinkAmount);
-					float flicker = sin(flameProgress * flameFlickerSpeed2) * flameFlickerIntensity2;
-					flameParticle->state.scale = glm::vec3(flameScale + flicker);
-			} else {
-					float disappearProgress = (flameProgress - 0.85f) / 0.15f;
-					float flameScale = (1.0f - disappearProgress) * 0.15f;
-					flameParticle->state.scale = glm::vec3(flameScale);
-			}
-
-			UpdateVisualizerBars();
-			
-			Update();
-			Redraw();
+		if (flameProgress < 0.15f) {
+				float popProgress = flameProgress / 0.15f;
+				float flicker = sin(flameProgress * flameFlickerSpeed1) * flameFlickerIntensity1;
+				float flameScale = flameBaseScale + flicker;
+				flameParticle->state.scale = glm::vec3(flameScale);
+		} else if (flameProgress < 0.85f) {
+				float shrinkProgress = (flameProgress - 0.15f) / 0.7f;
+				float flameScale = (1.0f - shrinkProgress * flameShrinkAmount);
+				float flicker = sin(flameProgress * flameFlickerSpeed2) * flameFlickerIntensity2;
+				flameParticle->state.scale = glm::vec3(flameScale + flicker);
+		} else {
+				float disappearProgress = (flameProgress - 0.85f) / 0.15f;
+				float flameScale = (1.0f - disappearProgress) * 0.15f;
+				flameParticle->state.scale = glm::vec3(flameScale);
 		}
-		Destroy();
+
+		UpdateVisualizerBars();
+		
+		Update();
+		Redraw();
 	}
 
 
