@@ -459,6 +459,7 @@ public:
       float normalized = std::clamp(ah, 0.0f, 1.0f);
       float barHeight = normalized * visualizerBarHeightMult;
       rectangles[i]->state.scale = glm::vec3(1.0f, barHeight, 1.0f);
+      rectangles[i]->modelMatrixDirty = true;
     }
 	}
 	
