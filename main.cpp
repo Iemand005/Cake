@@ -36,6 +36,24 @@ void LogToFile(const std::string& message)
 	catch (...) { }
 }
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+
+extern "C" {
+
+// Pause/resume the Emscripten main loop so the host page can hand the canvas
+// over to another renderer (e.g. switching visualizers in the Music app).
+EMSCRIPTEN_KEEPALIVE void PauseMainLoop() {
+	emscripten_pause_main_loop();
+}
+
+EMSCRIPTEN_KEEPALIVE void ResumeMainLoop() {
+	emscripten_resume_main_loop();
+}
+
+}
+#endif
+
 int main() {
 
 	std::cout << "Hiii" << std::endl;
