@@ -103,7 +103,7 @@ public:
 	float baseSpeedElapsedTimeBumpy = 0.0002f;
 	float baseSpeedElapsedTime = 0.0002f;
 
-	bool isCyanide = true;
+	bool isCyanide = false;
 
 	Aura aura;
 
