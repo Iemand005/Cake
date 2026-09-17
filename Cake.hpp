@@ -271,8 +271,8 @@ public:
 		flameMesh.loadTexture("resources/textures/particles.png", fe::TextureScaling::Nearest);
 
 		auto particle = std::make_shared<fe::Object>(flameMesh);
-		candle->name = "Flame";
-        // particle->meshes[0].hasTransparency = true; // TODO: brng it back!
+		particle->name = "Flame";
+		particle->meshes[0]->SetHasTransparency(true);
 		particle->state.position.y = 1.085f;
 		flameParticle = particle;
 		scene->AddObject(particle);
