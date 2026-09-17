@@ -103,19 +103,16 @@ public:
 	float baseSpeedElapsedTimeBumpy = 0.0002f;
 	float baseSpeedElapsedTime = 0.0002f;
 
-	bool isCyanide = true;
-
 	Aura aura;
 
 	Cake() : Cake(1400, 1200) {}
 
 	Cake(int width, int height) : fe::EditableGame(width, height, false, false) {
 
-		const char *name = "HAPPY BIRTHDAY AGNEZ!!";
+		const char *name = "HAPPY BIRTHDAY JOSH!!";
 
 		// suyo
 		auto window = GetWindow();
-		window->SetTitle(isCyanide ? "HAPPY BIRTHDAY CYANIDE!!" : "HAPPY BIRTHDAY FLEXAN!!");
 		window->SetTitle(name);
 
 		SetClearColor(1, 0, 1);
