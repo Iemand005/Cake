@@ -451,7 +451,7 @@ public:
 	}
 
 
-	void InitUI() override {}
+	void initUI() override {}
 
 	void UpdateVisualizerBars() {
     for (int i = 0; i < NUM_BARS; ++i) {
@@ -569,7 +569,7 @@ public:
     ImGui::End();
 	}
 
-	void DrawUI() override {
+	void drawUI() override {
 		if (!showDebugUI) return;
 		BeginFrame();
 
